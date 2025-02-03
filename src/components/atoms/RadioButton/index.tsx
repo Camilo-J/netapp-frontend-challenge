@@ -7,6 +7,7 @@ interface RadioButtonProps {
   checked?: boolean;
   onChange: (value: string) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 export function RadioButton({
@@ -16,6 +17,7 @@ export function RadioButton({
   onChange,
   className,
   label,
+  disabled,
 }: RadioButtonProps) {
   return (
     <div className="flex items-center space-x-2">
@@ -28,6 +30,7 @@ export function RadioButton({
           className || ""
         }`}
         onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
       />
       <Label htmlFor={id} className="text-sm">
         {label}

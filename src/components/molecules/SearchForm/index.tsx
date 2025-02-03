@@ -9,10 +9,12 @@ import { ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
 import { useFormStatus } from "react-dom";
 import { usePhotoStore } from "@/store/photo";
+import { useLocation } from "react-router";
 
 export function SearchForm({ ...props }: ComponentProps<"form">) {
   const { pending } = useFormStatus();
   const searchTerm = usePhotoStore((state) => state.searchTerm);
+  const location = useLocation();
   const setSearchTerm = usePhotoStore((state) => state.setSearchTerm);
 
   return (
@@ -33,7 +35,11 @@ export function SearchForm({ ...props }: ComponentProps<"form">) {
           <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50" />
         </SidebarGroupContent>
 
-        <Button disabled={pending} type="submit" className="w-full mt-4">
+        <Button
+          disabled={pending || location.pathname !== "/home"}
+          type="submit"
+          className="w-full mt-4"
+        >
           {pending ? "Loading..." : "Search"}
         </Button>
       </SidebarGroup>

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { RadioButton } from "@/components/atoms/RadioButton";
 import { usePhotoStore } from "@/store/photo";
+import { useLocation } from "react-router";
 
 const OrientationData = {
   title: "Orientation",
@@ -26,8 +27,10 @@ const OrientationData = {
 export function NavMain() {
   const setPhotos = usePhotoStore((state) => state.setPhotos);
   const queryTerm = usePhotoStore((state) => state.searchTerm);
+  const location = useLocation();
+
   const handleChange = async (value: string) => {
-    if (!value) return;
+    if (!value || location.pathname !== "/home") return;
 
     await setPhotos(
       `${queryTerm ? `query=${queryTerm}&` : ""}orientation=${value}`
@@ -63,6 +66,7 @@ export function NavMain() {
                             name={OrientationData.title.toLowerCase()}
                             label={subItem.title}
                             value={subItem.title}
+                            disabled={location.pathname !== "/home"}
                             onChange={(value) => handleChange(value)}
                           />
                         </SidebarMenuSubButton>
