@@ -1,4 +1,4 @@
-import { User, ChevronsUpDown, LogOut } from "lucide-react";
+import { User, ChevronsUpDown, LogOut, KeyRound } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -17,6 +17,7 @@ import {
 import { User as UserType } from "@/types/user";
 import { useUserStore } from "@/store/user";
 import { useNavigate } from "react-router";
+import { usePhotoStore } from "@/store/photo";
 
 interface NavUserProps {
   user: UserType | null;
@@ -26,6 +27,7 @@ export function NavUser({ user }: NavUserProps) {
   const { isMobile } = useSidebar();
   const navigate = useNavigate();
   const logout = useUserStore((state) => state.logout);
+  const resetValues = usePhotoStore((state) => state.resetValues);
 
   return (
     <SidebarMenu>
@@ -69,12 +71,26 @@ export function NavUser({ user }: NavUserProps) {
               onClick={() => navigate("/profile")}
             >
               <User />
-              Account
+              Cuenta
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer" onClick={logout}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => navigate("/change-password")}
+            >
+              <KeyRound />
+              Cambiar Contraseña
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                resetValues();
+                logout();
+              }}
+            >
               <LogOut />
-              Log out
+              Cerrar sesión
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

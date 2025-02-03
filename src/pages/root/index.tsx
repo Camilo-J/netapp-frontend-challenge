@@ -5,6 +5,7 @@ import { use } from "react";
 import RegisterPage from "../register";
 import { HomePage } from "@/pages/home";
 import { ProfilePage } from "../profile";
+import { ChangePasswordPage } from "../changePassword";
 
 interface Props {
   userResponse: Promise<unknown>;
@@ -33,6 +34,7 @@ export function Root({ userResponse }: Props) {
             <Route index element={<Navigate to="/home" />} />
             <Route index path="home" element={<HomePage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="change-password" element={<ChangePasswordPage />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Route>
         </>
