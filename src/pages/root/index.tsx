@@ -3,6 +3,8 @@ import { LoginPage } from "@/pages/login";
 import { useUserStore } from "@/store/user.ts";
 import { use } from "react";
 import RegisterPage from "../register";
+import { HomePage } from "@/pages/home";
+import { ProfilePage } from "../Profile";
 
 interface Props {
   userResponse: Promise<unknown>;
@@ -25,7 +27,16 @@ export function Root({ userResponse }: Props) {
           </Route>
         </>
       )}
-      {user && <Route path="*" element={<LoginPage />} />}
+      {user && (
+        <>
+          <Route path="/">
+            <Route index element={<Navigate to="/home" />} />
+            <Route index path="home" element={<HomePage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </Route>
+        </>
+      )}
     </Routes>
   );
 }
