@@ -4,7 +4,7 @@ import { useUserStore } from "@/store/user.ts";
 import { use } from "react";
 import RegisterPage from "../register";
 import { HomePage } from "@/pages/home";
-import { ProfilePage } from "../Profile";
+import { ProfilePage } from "../profile";
 
 interface Props {
   userResponse: Promise<unknown>;
