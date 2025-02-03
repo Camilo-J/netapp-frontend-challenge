@@ -1,25 +1,26 @@
 import collectionClient from "./collection-client";
-import { User } from "@/types/user";
-import { omit } from "radashi";
 import { tokenKey } from "@/constants/setting.ts";
-import { Credentials } from "@/types/auth";
+import { Credentials, LoginResponse } from "@/types/auth";
+import { User } from "@/types/user";
 
 export async function login(credentials: Credentials) {
-  const response = await collectionClient<User>("/auth/login", {
+  const { user, token } = await collectionClient<LoginResponse>("/auth/login", {
     body: { ...credentials },
   });
 
-  sessionStorage.setItem(tokenKey, response.token as string);
-  return omit(response, ["token"]);
+  sessionStorage.setItem(tokenKey, token as string);
+  sessionStorage.setItem("userId", JSON.stringify(user.id));
+  return user;
 }
 
-export async function signup(userData: Credentials) {
-  const response = await collectionClient<User>("/auth/signup", {
+export async function signup(userData: Partial<User>) {
+  const response = await collectionClient<LoginResponse>("/auth/signup", {
     body: { ...userData },
   });
 
   sessionStorage.setItem(tokenKey, response.token as string);
-  return omit(response, ["token"]);
+  sessionStorage.setItem("userId", JSON.stringify(response.user.id));
+  return response.user;
 }
 
 export async function logout() {
