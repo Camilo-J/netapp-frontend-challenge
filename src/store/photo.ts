@@ -7,6 +7,7 @@ interface PhotoState {
   searchTerm: string;
   setPhotos: (photos: string) => Promise<void>;
   setSearchTerm: (searchTerm: string) => void;
+  resetValues: () => void;
 }
 
 export const usePhotoStore = create<PhotoState>()((set) => ({
@@ -18,5 +19,8 @@ export const usePhotoStore = create<PhotoState>()((set) => ({
   setPhotos: async (searchTerms) => {
     const photos = await getPhotos(searchTerms);
     set({ photos });
+  },
+  resetValues: () => {
+    set({ photos: [], searchTerm: "" });
   },
 }));

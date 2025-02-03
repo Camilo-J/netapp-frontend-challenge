@@ -2,6 +2,7 @@ import { Root } from "@/pages/root";
 import { Suspense } from "react";
 import { useUserStore } from "./store/user.ts";
 import { tryit } from "radashi";
+import Cookies from "js-cookie";
 
 function App() {
   const getUser = useUserStore((state) => state.getUser);
@@ -9,18 +10,19 @@ function App() {
 
   const executeFunctions = async () => {
     if (!user) {
-      const userId = sessionStorage.getItem("userId");
+      const userId = Cookies.get("userId");
       if (userId) {
         const [error] = await tryit(getUser)(parseInt(userId));
         if (error) console.log("User not fetched");
         return { user };
       }
     }
+
     return { user };
   };
 
   return (
-    <div>
+    <div className="w-screen">
       <Suspense fallback={<div>loading .....</div>}>
         <Root userResponse={executeFunctions()} />
       </Suspense>
