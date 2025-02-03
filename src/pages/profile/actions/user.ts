@@ -4,14 +4,14 @@ import { removeEmptyValues } from "@/utils/cleanEmptyValues";
 import { Error } from "@/types/error";
 
 export function updateUserAction() {
-  return async (_error: Error, credentials: FormData) => {
+  return async (_error: Error, userInformation: FormData) => {
     const updateUser = useUserStore.getState().updateUser;
     const [error] = await tryit(updateUser)(
       removeEmptyValues({
-        lastName: credentials.get("lastName") as string,
-        name: credentials.get("name") as string,
-        username: credentials.get("username") as string,
-        email: credentials.get("email") as string,
+        lastName: userInformation.get("lastName") as string,
+        name: userInformation.get("name") as string,
+        username: userInformation.get("username") as string,
+        email: userInformation.get("email") as string,
       })
     );
 

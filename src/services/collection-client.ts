@@ -1,4 +1,4 @@
-import { BASE_URI, tokenKey } from "@/constants/setting.ts";
+import { BASE_URI } from "@/constants/setting.ts";
 import { tryit } from "radashi";
 
 interface CollectionClientOptions {
@@ -11,15 +11,6 @@ export default async function collectionClient<T>(
   endpoint: string,
   { method, headers, body } = {} as CollectionClientOptions
 ) {
-  const token = sessionStorage.getItem(tokenKey);
-
-  if (token) {
-    headers = {
-      ...headers,
-      Cookie: `${tokenKey}=${token}`,
-    };
-  }
-
   if (body) {
     headers = {
       "Content-Type": "application/json",
@@ -31,6 +22,7 @@ export default async function collectionClient<T>(
     method: method || (body ? "POST" : "GET"),
     headers,
     body: body ? JSON.stringify(body) : null,
+    credentials: "include" as RequestCredentials,
   };
 
   const response = await fetch(`${BASE_URI}${endpoint}`, config);

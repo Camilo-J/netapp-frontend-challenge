@@ -1,4 +1,4 @@
-import { Credentials, LoginResponse } from "@/types/auth";
+import { ChangePassword, Credentials, LoginResponse } from "@/types/auth";
 import { tokenKey } from "@/constants/setting.ts";
 import { User } from "@/types/user";
 import collectionClient from "./collection-client";
@@ -40,9 +40,11 @@ export async function logout() {
   Cookies.remove("refreshToken");
 }
 
-export async function changePassword(credentials: Credentials) {
+export async function changePassword(credentials: ChangePassword) {
+  const userId = Cookies.get("userId");
+
   await collectionClient("/auth/change-password", {
-    method: "PATCH",
-    body: { ...credentials },
+    method: "POST",
+    body: { ...credentials, userId },
   });
 }

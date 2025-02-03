@@ -5,6 +5,11 @@ export interface Credentials {
   password: string;
 }
 
+export interface ChangePassword {
+  password: string;
+  newPassword: string;
+}
+
 export interface LoginResponse {
   user: User;
   token: string;
