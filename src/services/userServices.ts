@@ -2,9 +2,11 @@ import collectionClient from "./collection-client";
 import { User } from "@/types/user.ts";
 import { omit } from "radashi";
 import { tokenKey } from "@/constants/setting.ts";
+import Cookies from "js-cookie";
 
 export async function updateUser(userData: Partial<User>) {
-  const response = await collectionClient<User>("/profile", {
+  const userId = Cookies.get("userId");
+  const response = await collectionClient<User>(`/users/${userId}`, {
     method: "PATCH",
     body: userData,
   });
