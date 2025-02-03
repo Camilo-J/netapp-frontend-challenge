@@ -1,15 +1,16 @@
-import collectionClient from "./collection-client";
-import { tokenKey } from "@/constants/setting.ts";
 import { Credentials, LoginResponse } from "@/types/auth";
+import { tokenKey } from "@/constants/setting.ts";
 import { User } from "@/types/user";
+import collectionClient from "./collection-client";
+import Cookies from "js-cookie";
 
 export async function login(credentials: Credentials) {
   const { user, token } = await collectionClient<LoginResponse>("/auth/login", {
     body: { ...credentials },
   });
 
-  sessionStorage.setItem(tokenKey, token as string);
-  sessionStorage.setItem("userId", JSON.stringify(user.id));
+  Cookies.set(tokenKey, token);
+  Cookies.set("userId", JSON.stringify(user.id));
   return user;
 }
 
@@ -18,15 +19,16 @@ export async function signup(userData: Partial<User>) {
     body: { ...userData },
   });
 
-  sessionStorage.setItem(tokenKey, response.token as string);
-  sessionStorage.setItem("userId", JSON.stringify(response.user.id));
+  Cookies.set("userId", JSON.stringify(response.user.id));
+  Cookies.set(tokenKey, response.token);
   return response.user;
 }
 
 export async function logout() {
   await collectionClient("/auth/logout", { method: "DELETE" });
 
-  sessionStorage.removeItem(tokenKey);
+  Cookies.remove("userId");
+  Cookies.remove(tokenKey);
 }
 
 export async function changePassword(credentials: Credentials) {

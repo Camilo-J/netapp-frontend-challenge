@@ -8,7 +8,7 @@ interface UserState {
   user: User | null;
   getUser: (userId: number) => Promise<void>;
   login: (credentials: Credentials) => Promise<void>;
-  signup: (credentials: Credentials) => Promise<void>;
+  signup: (credentials: Partial<User>) => Promise<void>;
   logout: () => Promise<void>;
   updateUser: (user: Partial<User>) => Promise<void>;
 }
@@ -23,7 +23,7 @@ export const useUserStore = create<UserState>()((set) => ({
     const user = await login(credentials);
     set({ user });
   },
-  signup: async (credentials: Credentials) => {
+  signup: async (credentials: Partial<User>) => {
     const user = await signup(credentials);
     set({ user });
   },
