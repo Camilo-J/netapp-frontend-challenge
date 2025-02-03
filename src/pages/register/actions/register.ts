@@ -1,5 +1,5 @@
 import { tryit } from "radashi";
-import { signup } from "@/services/authServices";
+import { useUserStore } from "@/store/user";
 
 type Error = {
   message: string;
@@ -7,6 +7,7 @@ type Error = {
 
 export function registerAction() {
   return async (_error: Error, credentials: FormData) => {
+    const signup = useUserStore.getState().signup;
     const [error] = await tryit(signup)({
       lastName: credentials.get("lastName") as string,
       name: credentials.get("name") as string,
