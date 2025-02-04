@@ -12,7 +12,7 @@ export async function login(credentials: Credentials) {
     }
   );
 
-  Cookies.set(tokenKey, token);
+  Cookies.set(tokenKey, token, { secure: true, sameSite: "none" });
   Cookies.set("userId", JSON.stringify(user.id));
   Cookies.set("refreshToken", refreshToken);
   return user;
@@ -24,7 +24,7 @@ export async function signup(userData: Partial<User>) {
   });
 
   Cookies.set("userId", JSON.stringify(response.user.id));
-  Cookies.set(tokenKey, response.token);
+  Cookies.set(tokenKey, response.token, { secure: true, sameSite: "none" });
   Cookies.set("refreshToken", response.refreshToken);
   return response.user;
 }

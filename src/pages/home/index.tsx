@@ -8,7 +8,7 @@ import { ImageSkeleton } from "./components/molecules/ImageSkeleton";
 export function HomePage() {
   const photos = usePhotoStore((state) => state.photos);
   const [loadingPhotos, setLoadingPhotos] = useState(
-    Array(photos.length).fill(true)
+    !photos.length ? Array(photos.length).fill(true) : []
   );
 
   const handleImageLoad = (index: number) => {
@@ -41,7 +41,7 @@ export function HomePage() {
                     <img
                       src={src.medium || "/placeholder.svg"}
                       alt={alt}
-                      className="w-full h-48 object-cover rounded"
+                      className="w-full h-48 object-cover rounded hover:scale-95 transition-transform duration-500"
                       onLoad={() => handleImageLoad(index)}
                     />
                   )}
