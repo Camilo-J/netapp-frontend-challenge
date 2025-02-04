@@ -36,6 +36,7 @@ export function NavMain() {
       `${queryTerm ? `query=${queryTerm}&` : ""}orientation=${value}`
     );
   };
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Filters</SidebarGroupLabel>
@@ -62,11 +63,13 @@ export function NavMain() {
                       <SidebarMenuSubItem key={subItem.title}>
                         <SidebarMenuSubButton asChild>
                           <RadioButton
-                            id={OrientationData.title.toLowerCase()}
+                            id={subItem.title.toLowerCase()}
                             name={OrientationData.title.toLowerCase()}
                             label={subItem.title}
                             value={subItem.title}
-                            disabled={location.pathname !== "/home"}
+                            disabled={
+                              location.pathname !== "/home" || !queryTerm
+                            }
                             onChange={(value) => handleChange(value)}
                           />
                         </SidebarMenuSubButton>
