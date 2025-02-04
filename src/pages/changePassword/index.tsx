@@ -38,6 +38,7 @@ export function ChangePasswordPage() {
             <section>
               <div className="grid w-full items-center gap-4">
                 <CustomInput
+                  id="password"
                   name="password"
                   type="password"
                   placeholder="********"
@@ -46,6 +47,7 @@ export function ChangePasswordPage() {
                   label="Contraseña Actual"
                 />
                 <CustomInput
+                  id="newPassword"
                   name="newPassword"
                   type="password"
                   placeholder="********"

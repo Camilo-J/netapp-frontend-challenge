@@ -38,6 +38,7 @@ export default function RegisterPage() {
           <section>
             <div className="grid w-full items-center gap-4">
               <CustomInput
+                id="name"
                 name="name"
                 placeholder="Pedro Juan"
                 defaultValue={state.name}
@@ -45,6 +46,7 @@ export default function RegisterPage() {
                 label="Nombres"
               />
               <CustomInput
+                id="lastName"
                 name="lastName"
                 placeholder="Pérez Ramírez"
                 defaultValue={state.lastName}
@@ -52,6 +54,7 @@ export default function RegisterPage() {
                 label="Apellidos"
               />
               <CustomInput
+                id="username"
                 name="username"
                 placeholder="pedro123"
                 defaultValue={state.username}
@@ -59,6 +62,7 @@ export default function RegisterPage() {
                 label="Usuario"
               />
               <CustomInput
+                id="password"
                 name="password"
                 placeholder="********"
                 defaultValue={state.password}
@@ -67,6 +71,7 @@ export default function RegisterPage() {
               />
 
               <CustomInput
+                id="email"
                 name="email"
                 placeholder="example@mail.com"
                 defaultValue={state.email}

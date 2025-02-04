@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 interface CustomInputProps {
+  id: string;
   name: string;
   placeholder: string;
   defaultValue: string;
@@ -14,6 +15,7 @@ interface CustomInputProps {
 export function CustomInput({
   defaultValue,
   name,
+  id,
   placeholder,
   required,
   label,
@@ -22,14 +24,16 @@ export function CustomInput({
 }: CustomInputProps) {
   return (
     <div className="flex flex-col space-y-1.5">
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={id}>{label}</Label>
       <Input
+        id={id}
         name={name}
         type={type}
         placeholder={placeholder}
         defaultValue={defaultValue}
         required={required}
         disabled={disabled}
+        autoComplete="on"
       />
     </div>
   );

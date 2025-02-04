@@ -35,6 +35,7 @@ export function ProfilePage() {
             <section>
               <div className="grid w-full items-center gap-4">
                 <CustomInput
+                  id="name"
                   name="name"
                   placeholder="Pedro Juan"
                   defaultValue={user?.name || ""}
@@ -42,6 +43,7 @@ export function ProfilePage() {
                   label="Nombres"
                 />
                 <CustomInput
+                  id="lastName"
                   name="lastName"
                   placeholder="Pérez Ramírez"
                   defaultValue={user?.lastName || ""}
@@ -49,6 +51,7 @@ export function ProfilePage() {
                   label="Apellidos"
                 />
                 <CustomInput
+                  id="username"
                   name="username"
                   placeholder="pedro123"
                   defaultValue={user?.username || ""}
@@ -56,6 +59,7 @@ export function ProfilePage() {
                   label="Usuario"
                 />
                 <CustomInput
+                  id="email"
                   name="email"
                   placeholder="example@mail.com"
                   defaultValue={user?.email || ""}

@@ -37,6 +37,7 @@ export function LoginPage() {
           <section>
             <div className="grid w-full items-center gap-4">
               <CustomInput
+                id="email"
                 name="email"
                 type="email"
                 placeholder="example@mail.com"
@@ -45,6 +46,7 @@ export function LoginPage() {
                 required
               />
               <CustomInput
+                id="password"
                 name="password"
                 type="password"
                 placeholder="**********"
