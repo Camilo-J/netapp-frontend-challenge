@@ -27,6 +27,7 @@ const OrientationData = {
 export function NavMain() {
   const setPhotos = usePhotoStore((state) => state.setPhotos);
   const queryTerm = usePhotoStore((state) => state.searchTerm);
+  const setFilter = usePhotoStore((state) => state.setFilterSelected);
   const location = useLocation();
 
   const handleChange = async (value: string) => {
@@ -35,6 +36,8 @@ export function NavMain() {
     await setPhotos(
       `${queryTerm ? `query=${queryTerm}&` : ""}orientation=${value}`
     );
+
+    setFilter(value === "Square" ? "tiny" : value.toLowerCase());
   };
 
   return (

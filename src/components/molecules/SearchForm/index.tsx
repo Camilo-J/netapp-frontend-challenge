@@ -5,7 +5,7 @@ import {
   SidebarGroupContent,
   SidebarInput,
 } from "@/components/ui/sidebar";
-import { ComponentProps } from "react";
+import { ChangeEvent, ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
 import { useFormStatus } from "react-dom";
 import { usePhotoStore } from "@/store/photo";
@@ -16,6 +16,10 @@ export function SearchForm({ ...props }: ComponentProps<"form">) {
   const searchTerm = usePhotoStore((state) => state.searchTerm);
   const location = useLocation();
   const setSearchTerm = usePhotoStore((state) => state.setSearchTerm);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <form {...props}>
@@ -28,7 +32,7 @@ export function SearchForm({ ...props }: ComponentProps<"form">) {
             id="search"
             name="search"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleChange}
             placeholder="Search the Images..."
             className="pl-8"
           />

@@ -7,6 +7,7 @@ import { ImageSkeleton } from "./components/molecules/ImageSkeleton";
 
 export function HomePage() {
   const photos = usePhotoStore((state) => state.photos);
+  const filterSelected = usePhotoStore((state) => state.filterSelected);
   const [loadingPhotos, setLoadingPhotos] = useState(
     !photos.length ? Array(photos.length).fill(true) : []
   );
@@ -39,7 +40,9 @@ export function HomePage() {
 
                   {!loadingPhotos[index] && (
                     <img
-                      src={src.medium || "/placeholder.svg"}
+                      src={
+                        src[(filterSelected as keyof typeof src) || "medium"]
+                      }
                       alt={alt}
                       className="w-full h-48 object-cover rounded hover:scale-95 transition-transform duration-500"
                       onLoad={() => handleImageLoad(index)}
