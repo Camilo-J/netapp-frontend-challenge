@@ -37,7 +37,7 @@ export default async function collectionClient<T>(
 
     if (error) throw new Error(error.message);
 
-    throw new Error(JSON.stringify(bodyResponse.errors));
+    throw new Error(bodyResponse.message);
   }
 
   const [error, bodyResponse] = await tryit(getResponse)();

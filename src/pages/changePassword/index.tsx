@@ -11,11 +11,15 @@ import {
 } from "@/components/ui/card";
 import { useActionState } from "react";
 import { changePasswordAction } from "./actions/password";
+import { ErrorText } from "@/components/atoms/ErrorText";
 
 export function ChangePasswordPage() {
-  const [, action, isPending] = useActionState(changePasswordAction(), {
+  const [state, action, isPending] = useActionState(changePasswordAction(), {
     message: "",
+    password: "",
+    newPassword: "",
   });
+
   return (
     <div className="flex h-screen">
       <CustomSidebar />
@@ -38,18 +42,19 @@ export function ChangePasswordPage() {
                   type="password"
                   placeholder="********"
                   required={true}
-                  defaultValue=""
+                  defaultValue={state.password}
                   label="Contraseña Actual"
                 />
                 <CustomInput
                   name="newPassword"
                   type="password"
                   placeholder="********"
-                  defaultValue=""
+                  defaultValue={state.newPassword}
                   required={true}
                   label="Nueva Contraseña"
                 />
               </div>
+              <ErrorText message={state.message} />
             </section>
           </CardContent>
           <CardFooter className="flex justify-end">

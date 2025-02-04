@@ -1,11 +1,14 @@
 import { tryit } from "radashi";
 import { useUserStore } from "@/store/user";
-type Error = {
-  message: string;
-};
+import { Error } from "@/types/error";
+
+interface LoginError extends Error {
+  email: string;
+  password: string;
+}
 
 export function loginAction() {
-  return async (_error: Error, credentials: FormData) => {
+  return async (_error: LoginError, credentials: FormData) => {
     const login = useUserStore.getState().login;
 
     const [error] = await tryit(login)({
@@ -13,6 +16,10 @@ export function loginAction() {
       password: credentials.get("password") as string,
     });
 
-    return { message: error?.message || "" };
+    return {
+      message: error?.message || "",
+      email: (credentials.get("email") as string) || "",
+      password: (credentials.get("password") as string) || "",
+    };
   };
 }

@@ -1,6 +1,5 @@
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardHeader,
@@ -10,13 +9,19 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useNavigate } from "react-router";
-import { Label } from "@/components/ui/label";
 import { registerAction } from "./actions/register";
+import { CustomInput } from "@/components/atoms/CustomInput";
+import { ErrorText } from "@/components/atoms/ErrorText";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const [, action, isPending] = useActionState(registerAction(), {
+  const [state, action, isPending] = useActionState(registerAction(), {
     message: "",
+    lastName: "",
+    name: "",
+    username: "",
+    email: "",
+    password: "",
   });
 
   return (
@@ -32,37 +37,44 @@ export default function RegisterPage() {
         <CardContent>
           <section>
             <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Nombres</Label>
-                <Input name="name" placeholder="Pedro Juan" required />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="lastName">Apellidos</Label>
-                <Input name="lastName" placeholder="Pérez Ramírez" required />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">Usuario</Label>
-                <Input name="username" placeholder="pedro123" required />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">Contraseña</Label>
-                <Input
-                  name="password"
-                  type="password"
-                  placeholder="********"
-                  required
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Correo electrónico</Label>
-                <Input
-                  name="email"
-                  type="email"
-                  placeholder="example@mail.com"
-                  required
-                />
-              </div>
+              <CustomInput
+                name="name"
+                placeholder="Pedro Juan"
+                defaultValue={state.name}
+                required
+                label="Nombres"
+              />
+              <CustomInput
+                name="lastName"
+                placeholder="Pérez Ramírez"
+                defaultValue={state.lastName}
+                required
+                label="Apellidos"
+              />
+              <CustomInput
+                name="username"
+                placeholder="pedro123"
+                defaultValue={state.username}
+                required
+                label="Usuario"
+              />
+              <CustomInput
+                name="password"
+                placeholder="********"
+                defaultValue={state.password}
+                required
+                label="Contraseña"
+              />
+
+              <CustomInput
+                name="email"
+                placeholder="example@mail.com"
+                defaultValue={state.email}
+                required
+                label="Correo electrónico"
+              />
             </div>
+            <ErrorText message={state.message} />
           </section>
         </CardContent>
         <CardFooter className="flex justify-between">
